@@ -11,12 +11,19 @@ export default async (fastify: FastifyInstance) => {
 
     const body = req.body as any
     const {action, parameters} = body.queryResult
-    console.log({ action, parameters })
+
     if (action === "electricOnOff") {
       const on = parameters.action === "enable"
       return response([
         `Хорошо, ${on? "включаю": "выключаю"} ${parameters.electric}`,
-        `${on? "Включаю": "Выключаю"} ${parameters.electric}`
+        `${on? "Включаю": "Выключаю"} ${parameters.electric}`,
+        `Окей, ${parameters.electric} ${on? "выключен": "включен"}`
+      ])
+    }
+
+    if (action === "whoIs") {
+      return response([
+        `Я точно не знаю, но думаю, что ${parameters.person} - хороший человек!`
       ])
     }
 
