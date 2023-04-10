@@ -9,8 +9,10 @@ export default async (fastify: FastifyInstance) => {
   })
 
   const actions: { action: string, electric: string }[] = []
-  fastify.get("/actions", async () => {
-    return actions
+  fastify.post("/actions", async () => {
+    const resp = [ ...actions ]
+    actions.length = 0
+    return resp
   })
 
   const personsInfo = JSON.parse(fs.readFileSync(process.cwd()+"/persons.json", "utf-8") || "{}")
