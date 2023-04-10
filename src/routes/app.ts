@@ -8,6 +8,11 @@ export default async (fastify: FastifyInstance) => {
     return { status: "up" }
   })
 
+  const actions: { action: string, electric: string }[] = []
+  fastify.get("/actions", async () => {
+    return actions
+  })
+
   const personsInfo = JSON.parse(fs.readFileSync(process.cwd()+"/persons.json", "utf-8") || "{}")
   const personsMap = new Map()
   for (let [ key, value ] of Object.entries<any>(personsInfo)) {
@@ -24,6 +29,7 @@ export default async (fastify: FastifyInstance) => {
     
     if (action === "electricOnOff") {
       const on = parameters.action === "enable"
+      actions.push(parameters)
       return response([
         `Хорошо, ${on? "включаю": "выключаю"} ${parameters.electric}`,
         `${on? "Включаю": "Выключаю"} ${parameters.electric}`,
