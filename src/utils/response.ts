@@ -1,11 +1,12 @@
-export const response = (messages: string | string[]) => {
+export const response = (text: string | string[]) => {
+
+  const messages = Array.isArray(text)? text: [ text ]
+
   return {
-    "fulfillmentMessages": [
-      {
-        "text": {
-          "text": Array.isArray(messages)? messages: [ messages ]
-        }
+    "fulfillmentMessages": messages.map(str => ({
+      "text": {
+        "text": [ str ]
       }
-    ]
+    }))
   }
 }
