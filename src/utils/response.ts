@@ -1,12 +1,14 @@
-export const response = (text: string | string[]) => {
+export const response = (messages: string | string[]) => {
 
-  const messages = Array.isArray(text)? text: [ text ]
-
+  const text = Array.isArray(messages)? messages[Math.trunc(Math.random()*messages.length)]: messages
+    
   return {
-    "fulfillmentMessages": messages.map(str => ({
-      "text": {
-        "text": [ str ]
+    "fulfillmentMessages": [
+      {
+        "text": {
+          "text": [ text ]
+        }
       }
-    }))
+    ]
   }
 }
