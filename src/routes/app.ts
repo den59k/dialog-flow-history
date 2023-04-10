@@ -31,11 +31,16 @@ export default async (fastify: FastifyInstance) => {
     
     if (action === "electricOnOff") {
       const on = parameters.action === "enable"
+      if (!["принтер", "свет", "радио"].includes(parameters.electric)) {
+        return response ([
+          `Извините, но я пока не умею ${on? "включать": "выключать"} ${parameters.electric}`
+        ])
+      }
       actions.push(parameters)
       return response([
         `Хорошо, ${on? "включаю": "выключаю"} ${parameters.electric}`,
         `${on? "Включаю": "Выключаю"} ${parameters.electric}`,
-        `Окей, ${parameters.electric} ${on? "выключен": "включен"}`
+        `Окей, ${parameters.electric} ${on? "включен": "выключен"}`
       ])
     }
 
