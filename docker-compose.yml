@@ -4,7 +4,7 @@ services:
     build: .
     ports:
     - "12005:12005"
-    image: 127.0.0.1:5000/letary-v2:latest
+    image: 127.0.0.1:5005/bot-history:latest
     environment:
-        - PORT=12005
-        - HOST=0.0.0.0
+    - PORT=12005
+    - HOST=0.0.0.0
